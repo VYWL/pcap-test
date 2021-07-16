@@ -93,16 +93,20 @@ void printEthernetHeaderInfo(const u_char* packet) {
     EtherHD * ethernetHeader = NULL;
     ethernetHeader = (EtherHD*)packet;
 
-    printf("Source MAC : "); printMACAdress(ethernetHeader->sourceMAC);
-    printf("Destination MAC : "); printMACAdress(ethernetHeader->destinationMAC);
+    printf("# MAC Address \n");
+    printf("Source : "); printMACAdress(ethernetHeader->sourceMAC);
+    printf("Destination : "); printMACAdress(ethernetHeader->destinationMAC);
+    printf("\n");
 }
 
 void printIPv4HeaderInfo(const u_char* packet) {
     IPHD * ipHeader = NULL;
     ipHeader = (IPHD*)packet;
 
-    printf("Source IP : %s\n", inet_ntoa(ipHeader->sourceIP));
-    printf("Destination IP : %s\n", inet_ntoa(ipHeader->destinationIP));
+    printf("# IP Address \n");
+    printf("Source : %s\n", inet_ntoa(ipHeader->sourceIP));
+    printf("Destination : %s\n", inet_ntoa(ipHeader->destinationIP));
+    printf("\n");
     
 }
 
@@ -110,8 +114,10 @@ void printTCPHeaderInfo(const u_char* packet) {
     TCPHD * tcpHeader = NULL;
     tcpHeader = (TCPHD*)packet;
     
-    printf("Source Port : %d\n", ntohs(tcpHeader->sourcePort));
-    printf("Destination Port : %d\n", ntohs(tcpHeader->destinationPort));
+    printf("# PORT \n");
+    printf("Source : %d\n", ntohs(tcpHeader->sourcePort));
+    printf("Destination : %d\n", ntohs(tcpHeader->destinationPort));
+    printf("\n");
 }
 
 void printDATA8Byte(const u_char* packet) {
