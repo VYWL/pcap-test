@@ -90,28 +90,28 @@ void printMACAdress(u_char * macAdr) {
 }
 
 void printEthernetHeaderInfo(const u_char* packet) {
-    EtherHD * testEthernetHeader = NULL;
-    testEthernetHeader = (EtherHD*)packet;
+    EtherHD * ethernetHeader = NULL;
+    ethernetHeader = (EtherHD*)packet;
 
-    printf("Source MAC : "); printMACAdress(testEthernetHeader->sourceMAC);
-    printf("Destination MAC : "); printMACAdress(testEthernetHeader->destinationMAC);
+    printf("Source MAC : "); printMACAdress(ethernetHeader->sourceMAC);
+    printf("Destination MAC : "); printMACAdress(ethernetHeader->destinationMAC);
 }
 
 void printIPv4HeaderInfo(const u_char* packet) {
-    IPHD * testIPHeader = NULL;
-    testIPHeader = (IPHD*)packet;
+    IPHD * ipHeader = NULL;
+    ipHeader = (IPHD*)packet;
 
-    printf("Source IP : %s\n", inet_ntoa(testIPHeader->sourceIP));
-    printf("Destination IP : %s\n", inet_ntoa(testIPHeader->destinationIP));
+    printf("Source IP : %s\n", inet_ntoa(ipHeader->sourceIP));
+    printf("Destination IP : %s\n", inet_ntoa(ipHeader->destinationIP));
     
 }
 
 void printTCPHeaderInfo(const u_char* packet) {
-    TCPHD * testTCPHeader = NULL;
-    testTCPHeader = (TCPHD*)packet;
+    TCPHD * tcpHeader = NULL;
+    tcpHeader = (TCPHD*)packet;
     
-    printf("Source Port : %d\n", ntohs(testTCPHeader->sourcePort));
-    printf("Destination Port : %d\n", ntohs(testTCPHeader->destinationPort));
+    printf("Source Port : %d\n", ntohs(tcpHeader->sourcePort));
+    printf("Destination Port : %d\n", ntohs(tcpHeader->destinationPort));
 }
 
 void printDATA8Byte(const u_char* packet) {
@@ -119,6 +119,7 @@ void printDATA8Byte(const u_char* packet) {
     HDCHK * temp = (HDCHK*)packet;
     for(int i = 0; i < 8; ++i){
         printf("%02x ", temp->temp[i]);
+        temp->temp[i] = 0;
     }
     printf("\n");
 }
@@ -129,8 +130,8 @@ void printHEX(u_char hexAdr){
 
 int isPacketTCP(const u_char* packet) {
     packet += ETHERNET_HEADER_SIZE;
-    IPHD * testIPHeader = (IPHD*)packet;
+    IPHD * ipHeader = (IPHD*)packet;
     packet -= ETHERNET_HEADER_SIZE;
 
-    return testIPHeader->protocolID == 0x06 ? 1 : 0;
+    return ipHeader->protocolID == 0x06 ? 1 : 0;
 }
