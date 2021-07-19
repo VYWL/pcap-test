@@ -27,4 +27,3 @@ void printPacketInfo(const u_char* packet);
 void printDATA8Byte(const u_char* packet);
 void printMACAdress(u_char * macAdr);
 void printHEX(u_char hexAdr);
-
